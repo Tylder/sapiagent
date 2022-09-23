@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import settings as stt
-from keras.layers import (
+from tensorflow.keras.layers import (
     Input,
     Dense,
     Dropout,
@@ -13,10 +13,13 @@ from keras.layers import (
     Reshape,
     TimeDistributed,
     UpSampling1D,
+    Bidirectional,
+    GRU
 )
-from keras.layers import Bidirectional, GRU
-from keras.models import Model, load_model
-from tensorflow.keras import backend as K
+# from keras.layers import Bidirectional, GRU
+from tensorflow.keras.models import Model, load_model
+# from tensorflow.keras import backend as K
+from tensorflow.keras.backend import int_shape
 
 
 def bidirectional_autoencoder(input_size, input_dim):
@@ -53,7 +56,7 @@ def fcn_autoencoder(input_shape, fcn_filters=128, bottleneck=True):
     h = conv3
     if bottleneck:
         encoded = GlobalAveragePooling1D()(conv3)
-        dim_encoded = K.int_shape(encoded)[1]
+        dim_encoded = int_shape(encoded)[1]
         h = Reshape((dim_encoded, 1))(encoded)
         # stt.FEATURES must be multiple of 128
         factor = 1
