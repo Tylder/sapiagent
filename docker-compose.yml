@@ -3,12 +3,12 @@ services:
   jupyter:
     build:
       dockerfile: dockerfile
-    ports:
-      - 8888:8888
-      - 2224:22
+#    ports:
+#      - 8888:8888
+#      - 2224:22
     volumes:
-      - ./notebooks/:/tf/notebooks
-      - ./tmp/:/tmp
+#      - ./notebooks/:/tf/notebooks
+#      - ./tmp/:/tmp
       -  ./:/code
     deploy:
       resources:

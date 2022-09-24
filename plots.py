@@ -31,7 +31,7 @@ def plot_history(history, model_name):
     plt.xlabel("Epoch")
     plt.legend(["Train", "Validation"], loc="upper left")
     # plt.show()
-    plt.savefig(stt.TRAINING_CURVES_PATH + "/" + model_name + ".png", format="png")
+    plt.savefig(stt.TRAINING_CURVES_FOLDER_NAME + "/" + model_name + ".png", format="png")
 
 
 def plot_scores(
@@ -73,7 +73,7 @@ def plot_training(history, model_name, metrics="loss"):
     plt.legend(["training", "validation"], loc="upper left")
     # plt.show()
     plt.savefig(
-        stt.TRAINING_CURVES_PATH + "/" + model_name + "_" + metrics,
+        stt.TRAINING_CURVES_FOLDER_NAME + "/" + model_name + "_" + metrics,
         format="png",
     )
 

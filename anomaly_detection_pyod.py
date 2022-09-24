@@ -22,10 +22,12 @@ from pyod.models.feature_bagging import FeatureBagging
 from pyod.models.so_gaal import SO_GAAL
 from pyod.models.mo_gaal import MO_GAAL
 
-import settings as stt
+# import settings as stt
 from utils import calculate_eer, compute_AUC_EER
 from feature_extraction import calculate_features
 
+# number of actions (trajectories) used for decision
+NUM_ACTIONS = 10
 
 def df_to_array(df, classid=True):
     array = df.values
@@ -36,9 +38,9 @@ def df_to_array(df, classid=True):
         return array[:, 0:cols]
 
 
-def main():
+def anomaly_detection():
     ROC_DIR = 'output_roc_data'
-    results_filename = 'results_' + str(stt.NUM_ACTIONS) + '.txt'
+    results_filename = 'results_' + str(NUM_ACTIONS) + '.txt'
     f_results = open(results_filename, 'w')
     try:
         os.mkdir(ROC_DIR)
@@ -119,13 +121,13 @@ def main():
     # models.append(("MO_GAAL", MO_GAAL()))
     name_list = []
     # decision based on num_scores samples
-    num_scores = stt.NUM_ACTIONS
+    num_scores = NUM_ACTIONS
     # for each model
     
     for name, model in models:
         print(name)
         name_list.append(name)
-        # train the model with human data
+        # train.py the model with human data
         clf = model
         clf.fit(human_train)
         # evaluate the model with human data
@@ -195,8 +197,9 @@ def main():
     
 
 roc_data = True
+
 if __name__ == "__main__":
     tic = time.perf_counter()
-    main()
+    anomaly_detection()
     toc = time.perf_counter()
     print(f"Execution time: {toc - tic:0.4f} seconds")
