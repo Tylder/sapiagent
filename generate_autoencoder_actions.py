@@ -5,7 +5,6 @@ import time
 from tensorflow.keras.models import load_model
 from settings import TRAINED_MODELS_FOLDER_NAME
 
-
 def generate_autoencoder_actions(input_size, input_dim, model_name: str, training_models_path, equidistant_actions_df, out_dir: str):
 
   # OUTPUT_DIR = 'generated_actions'

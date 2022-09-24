@@ -37,6 +37,7 @@ def bidirectional_autoencoder(input_size, input_dim, loss_func_type: LossFuncTyp
     return encoder, autoencoder
 
 
+# Fully Convolutional Neural Network (FCN)
 def fcn_autoencoder(input_shape, loss_func_type: LossFuncType, fcn_filters=128, features=128, dimensions=2, bottleneck=True):
     # features must be multiple of 128
     input_layer = Input(shape=input_shape)
