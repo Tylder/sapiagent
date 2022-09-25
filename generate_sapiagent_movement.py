@@ -3,13 +3,13 @@ from typing import List
 
 import numpy
 
+from .settings import TRAINED_MODELS_FOLDER_NAME
 from PokerGUIControl.common import Int2
 import tensorflow as tf
 import pandas as pd
 import numpy as np
 from tensorflow.keras.models import load_model
 # from tensorflow.keras.models import load_model
-from settings import TRAINED_MODELS_FOLDER_NAME
 
 
 class SapiAgentMouse:
@@ -25,7 +25,8 @@ class SapiAgentMouse:
         self.model = load_model(model_path, compile=False)
 
     def get_movement(self, start: Int2, destination: Int2) -> [Int2]:
-        return generate_sapiagent_movement(self.model, start, destination)
+        array = generate_sapiagent_movement(self.model, start, destination)
+        return [Int2(pos[0], pos[1]) for pos in array]
 
 
 def create_equidistant_dx_dy(start: Int2, destination: Int2) -> np.ndarray:
@@ -70,7 +71,7 @@ def create_equidistant_dx_dy(start: Int2, destination: Int2) -> np.ndarray:
     return np.array(full_list)
 
 
-def scale_prediction_dx_dy_to_movement(prediction_rel_pos_array: np.ndarray, start: Int2, destination: Int2) -> [Int2]:
+def scale_prediction_dx_dy_to_movement(prediction_rel_pos_array: np.ndarray, start: Int2, destination: Int2) -> np.ndarray:
     """
     SapiAgent returns a list of dx, dy which is not scaled properly to actually reach the given destination
     We therefore need to scale the result so that we get to the destination
@@ -95,7 +96,7 @@ def dx_dy_list_to_rel_pos_list(dx_dy_list: np.ndarray) -> np.ndarray:
     return np.array([x_list, y_list], float).T
 
 
-def generate_sapiagent_movement(model, start: Int2, destination: Int2) -> [Int2]:
+def generate_sapiagent_movement(model, start: Int2, destination: Int2) -> np.ndarray:
     dx_dy_list = create_equidistant_dx_dy(start=start, destination=destination)
 
     X = dx_dy_list.reshape(-1, 128, 2)  # include batch size, since that is how it was trained
