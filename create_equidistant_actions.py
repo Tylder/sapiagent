@@ -6,7 +6,6 @@ from settings import SessionType, create_directory
 
 LENGTH = 128
 
-
 def create_actions(session, output_filepath, stat_dir, dt=False):
   f_out = open(output_filepath, 'w')
 

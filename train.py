@@ -8,7 +8,10 @@ from settings import create_directory, get_name, TRAINING_CURVES_FOLDER_NAME, TR
 
 
 def train():
-    work_dir = '/code'  # use os.getcwd() when running this locally instead of using docker
+    print(tf.__version__)
+
+    work_dir = os.path.dirname(os.path.realpath(__file__))
+    # work_dir = os.path.join()'/code'  # use os.getcwd() when running this locally instead of using docker
     # work_dir = os.getcwd()  # use os.getcwd() when running this locally instead of using docker
     data_dir = os.path.join(work_dir, "saved_data")
 
@@ -35,21 +38,22 @@ def train():
     # for is_supervised in [True, False]:
     for is_supervised in [False]:
         # for loss_func_type in [LossFuncType.CUSTOM, LossFuncType.MSE]:
-        for loss_func_type in [LossFuncType.MSE]:
-            for model_type in [ModelType.FCN, ModelType.BI_DIRECTIONAL]:
+        for loss_func_type in [LossFuncType.CUSTOM]:
+            # for model_type in [ModelType.FCN, ModelType.BI_DIRECTIONAL]:
+            for model_type in [ModelType.BI_DIRECTIONAL]:
                 model_name = get_name(model_type=model_type, loss_func_type=loss_func_type,
                                       is_supervised=is_supervised)
 
-                encoder, autoencoder = train_autoencoder(df=df_train,
-                                                         input_size=128, input_dim=2,
-                                                         num_filters=128,
-                                                         batch_size=32,
-                                                         use_supervised=is_supervised,
-                                                         loss_func_type=loss_func_type,
-                                                         model_type=model_type, model_name=model_name,
-                                                         epochs=100,
-                                                         training_models_path=training_models_path,
-                                                         supervised_feature_df=supervised_feature_df)
+                # encoder, autoencoder = train_autoencoder(df=df_train,
+                #                                          input_size=128, input_dim=2,
+                #                                          num_filters=128,
+                #                                          batch_size=32,
+                #                                          use_supervised=is_supervised,
+                #                                          loss_func_type=loss_func_type,
+                #                                          model_type=model_type, model_name=model_name,
+                #                                          epochs=1,
+                #                                          training_models_path=training_models_path,
+                #                                          supervised_feature_df=supervised_feature_df)
 
                 generate_autoencoder_actions(input_size=128, input_dim=2,
                                              model_name=model_name,
