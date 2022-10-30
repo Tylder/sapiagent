@@ -4,7 +4,7 @@ from typing import List
 import numpy
 
 from .settings import TRAINED_MODELS_FOLDER_NAME
-from PokerGUIControl.common import Int2
+from GUIControl.common import Int2
 import tensorflow as tf
 import pandas as pd
 import numpy as np
