@@ -76,13 +76,13 @@ def scale_prediction_dx_dy_to_movement(prediction_rel_pos_array: np.ndarray, sta
     SapiAgent returns a list of dx, dy which is not scaled properly to actually reach the given destination
     We therefore need to scale the result so that we get to the destination
     """
-    length_of_request = (destination - start).to_numpy()
+    length_of_request = (destination - start).toNumpy()
     length_of_prediction = prediction_rel_pos_array[-1, :]
 
     scale = length_of_request / length_of_prediction
     scale = numpy.reshape(scale, (1, 2))
 
-    return prediction_rel_pos_array * scale + start.to_numpy().reshape(1, 2)
+    return prediction_rel_pos_array * scale + start.toNumpy().reshape(1, 2)
 
 
 def dx_dy_list_to_rel_pos_list(dx_dy_list: np.ndarray) -> np.ndarray:
